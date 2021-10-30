@@ -1,15 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 class Vehicle(models.Model):
     plugged_number = models.CharField(max_length=55, primary_key=True)
     driver = models.CharField(max_length=100)
-    type = models.CharField(max_length=100)
-    category = models.CharField(max_length=100)
-    production_date = models.DateField()
-    registration_date = models.DateField()
+    type = models.CharField(blank=True, max_length=100)
+    category = models.CharField(blank=True, max_length=100)
+    production_date = models.DateField(blank=True)
+    registration_date = models.DateField(blank=True)
     is_cross_out = models.BooleanField(default=False)
-
     def __str__(self) -> str:
         return "Vehicle: " + str(self.plugged_number) + ", Driver: " + str(self.driver)
 

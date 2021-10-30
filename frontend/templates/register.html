@@ -15,26 +15,34 @@
             </a>
           </p>
       </div>
-      <form class="mt-8 space-y-6" action="#" method="POST">
+      <form class="mt-8 space-y-6" action="" method="POST">
+        {% csrf_token %}
         <input type="hidden" name="remember" value="true">
         <div class="rounded-md shadow-sm -space-y-px">
           <div class="mb-4">
-            <label for="plugged-number" class="block text-grey-darker text-sm font-bold mb-2">Plugged Number</label>
-            <input id="plugged-number" name="plugged" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Plugged Number">
+            <label for="plugged_number" class="block text-grey-darker text-sm font-bold mb-2">Plugged Number</label>
+            <input id="plugged_number" name="plugged_number" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Plugged Number">
           </div>
           <div class="mb-4">
             <label for="driver" class="block text-grey-darker text-sm font-bold mb-2">Driver Full Name</label>
             <input id="driver" name="driver" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Driver Full Name">
           </div>
           <div class="mb-4">
-            <label for="vehicle_type" class="block text-grey-darker text-sm font-bold mb-2">Vehicle Type</label>
-            <input id="vehicle_type" name="vehicle_type" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Vehicle Type">
+            <label for="type" class="block text-grey-darker text-sm font-bold mb-2">Vehicle Type</label>
+            <input id="type" name="type" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Vehicle Type">
           </div>
           <div class="mb-4">
             <label for="category" class="block text-grey-darker text-sm font-bold mb-2">Vehicle Category</label>
             <input id="category" name="category" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Vehicle Category">
           </div>
-          {% include 'datepicker.html' %}
+          <div class="mb-4">
+            <label for="production_date" class="block text-grey-darker text-sm font-bold mb-2">Vehicle Production Date</label>
+            <input id="production_date" name="production_date" type="date" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+          </div>
+          <div class="mb-4">
+            <label for="registration_date" class="block text-grey-darker text-sm font-bold mb-2">Vehicle Registration Date</label>
+            <input id="registration_date" name="registration_date" type="date" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+          </div>
         </div>
   
         

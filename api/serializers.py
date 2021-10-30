@@ -1,3 +1,4 @@
+from django.contrib.auth.backends import UserModel
 from rest_framework import serializers
 from .models import Vehicle, VehicleViolationLog, Violation
 
@@ -15,5 +16,19 @@ class VehicleViolationLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = VehicleViolationLog
         fields = '__all__'
-        
-        
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True)
+
+    def create(self, validated_data):
+
+        user = UserModel.objects.create_user(
+            username=validated_data['username'],
+            password=validated_data['password'],
+        )
+        return user
+    class Meta:
+        model = UserModel
+        fields = ( "id", "username", "password", )

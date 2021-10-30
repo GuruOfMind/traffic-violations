@@ -47,7 +47,6 @@ INSTALLED_APPS = [
 
     'api.apps.ApiConfig',
     'frontend.apps.FrontendConfig',
-    'driver.apps.DriverConfig'
 ]
 
 MIDDLEWARE = [
