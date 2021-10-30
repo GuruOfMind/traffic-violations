@@ -13,9 +13,13 @@ class ViolationTypeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class VehicleViolationLogSerializer(serializers.ModelSerializer):
+    violation = serializers.CharField(source="violations_id.violation_type")
+    tax = serializers.CharField(source="violations_id.tax")
+    driver = serializers.CharField(source="plugged_number.driver")
     class Meta:
         model = VehicleViolationLog
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('violations_id', )
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -1,15 +1,12 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
+from django.http.response import Http404
+from requests.models import Response
 from rest_framework import viewsets
-from rest_framework import permissions
-from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.views import APIView
 import django_filters.rest_framework as filters
 
 from api.models import Vehicle, VehicleViolationLog, Violation
-from api.serializers import UserSerializer, VehicleSerializer, VehicleViolationLogSerializer, ViolationTypeSerializer
+from api.serializers import VehicleSerializer, VehicleViolationLogSerializer, ViolationTypeSerializer
 
 '''
     Vehicles-related views (endpoints)
@@ -37,27 +34,19 @@ class VehicleViolationLogViewSet(viewsets.ModelViewSet):
     queryset = VehicleViolationLog.objects.all()
     serializer_class = VehicleViolationLogSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('plugged_number', 'plugged_number__driver')
-    
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data('plugged_number')
-            raw_password = form.cleaned_data.get('driver')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return "good"
-        else:
-            form = UserCreationForm()
-        return "bad"
+    filterset_fields = ('plugged_number', 'plugged_number__driver', 'is_paid')
 
+# class PaymentView(APIView):
+#     def get_object(self, pk):
+#         try:
+#             return VehicleViolationLog.objects.get(pk=pk)
+#         except VehicleViolationLog.DoesNotExist:
+#             raise Http404
 
-class CreateUserView(CreateAPIView):
-
-    model = User()
-    permission_classes = [
-        permissions.AllowAny # Or anon users can't register
-    ]
-    serializer_class = UserSerializer
+#     def put(self, request, pk, format=None):
+#         violation = self.get_object(pk)
+#         serializer = VehicleViolationLogSerializer(violation, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors)

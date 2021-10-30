@@ -6,8 +6,7 @@ from .models import Vehicle
 @receiver(post_save, sender=Vehicle)
 def create_driver_account(sender, instance, created, **kwargs):
     if created:
-        print(instance)
         user = User.objects.create(username=instance.plugged_number)
         user.set_password(instance.driver)
-        user.save
+        user.save()
 

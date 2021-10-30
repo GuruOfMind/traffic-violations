@@ -27,8 +27,8 @@ class Violation(models.Model):
         return f"/violations/{self.id}/"
 
 class VehicleViolationLog(models.Model):
-    plugged_number = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-    violations_id = models.ForeignKey(Violation, on_delete=models.CASCADE)
+    plugged_number = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="vehicle")
+    violations_id = models.ForeignKey(Violation, on_delete=models.CASCADE, related_name="violation")
     date = models.DateTimeField(auto_created=True)
     location = models.CharField(max_length=255)
     is_paid = models.BooleanField(default=False)

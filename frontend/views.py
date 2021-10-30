@@ -2,8 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 import requests
-from requests.models import Response
-from rest_framework import status
+from django.contrib import messages
 
 def Home_view(request, *args, **kwargs):
     print(request.user)
@@ -36,18 +35,30 @@ def Regsiter_view(request, *args, **kwargs):
         else:
             print(response.content)
             return redirect("home")
-    else:
-        return render(request, "register.html", {})
     return render(request, "register.html", {})
         
 @login_required(login_url="/login")
 def Dashboard_view(request, *args, **kwargs):
-    response = requests.get("http://127.0.0.1:8000/api/vehicle-violation-logs/")
+    current_user = request.user
+    vehicle_url = f"http://127.0.0.1:8000/api/vehicles/{current_user.username}/" 
+    user_driver = requests.get(vehicle_url).json()
+    response = requests.get(f"http://127.0.0.1:8000/api/vehicle-violation-logs/?plugged_number={user_driver['plugged_number']}&driver={user_driver['driver']}&is_paid=false")
     violations_list = response.json()
     return render(request, "dashboard.html", {"violations_list": violations_list})
 
+@login_required(login_url="/login")
 def Detail_view(request, id, *args, **kwargs):
     url = f"http://127.0.0.1:8000/api/vehicle-violation-logs/{id}"
     response = requests.get(url)
     violation_details = response.json()
     return render(request, "violation.html", {"violation_details": violation_details})
+
+@login_required(login_url="/login")
+def Payment_view(request, id, *args, **kwargs):
+    url = f"http://127.0.0.1:8000/api/vehicle-violation-logs/{id}/"
+    response = requests.patch(url, data={"is_paid":True})
+    if response.status_code == 200:
+        messages.add_message(request, messages.INFO, 'Violation has been paid successfully')
+        return redirect("dashboard")
+    messages.add_message(request, messages.error, 'Violation has been paid successfully')
+    return redirect('dashboard')

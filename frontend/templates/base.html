@@ -15,9 +15,14 @@
 	<body class="bg-gray-50 font-sans leading-normal tracking-normal">
 		{% include 'nav.html' %}
 		<div class="container mx-auto my-10">
+			{% block messages %}
+			{% endblock messages %}
 			{% block content %}
 
-			{% endblock %}
+			{% endblock content %}
 		</div>
+		{% block scripts %}
+			<script src="{% static 'scripts/flash.min.js' %}"></script>
+		{% endblock scripts %}
 	</body>
 </html>
