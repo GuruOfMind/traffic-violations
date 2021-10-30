@@ -5,7 +5,6 @@ import requests
 from django.contrib import messages
 
 def Home_view(request, *args, **kwargs):
-    print(request.user)
     return render(request, "home.html", {})
 
 def Login_view(request, *args, **kwargs):
