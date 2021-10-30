@@ -1,3 +1,4 @@
+import os
 """
 Django settings for trafficviolation project.
 
@@ -37,11 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
+    'django.contrib.humanize',
+    
+    'django_filters',
     'rest_framework',
-    'api_app',
-    'admin_app',
-    'driver_app'
+    'corsheaders',
+    'tailwind',
+
+    'api.apps.ApiConfig',
+    'frontend.apps.FrontendConfig',
+    'driver.apps.DriverConfig'
 ]
 
 MIDDLEWARE = [
@@ -125,8 +131,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# typically, os.path.join(os.path.dirname(__file__), 'media')
+MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media')
+MEDIA_URL = '/media/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAdminUser',
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication', 
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
+}
+
+TAILWIND_APP_NAME = 'frontend'
