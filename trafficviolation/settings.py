@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e+5b-v1%%^ifzk3sjdqrer4$)1r53q%o!8#u3g!)47jgg0b*so'
+SECRET_KEY = '***'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,11 +94,11 @@ import dj_database_url
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd710eslqvp3ida',
-        'USER': 'qyjqxwnuqbgpyf',
-        'PASSWORD': '6166f422bd0d1dbabea02a48dc509b34556301fcfc9a1be23a8ecbca79446e0b',
-        'HOST': 'ec2-34-250-16-127.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
+        'NAME': '***',
+        'USER': '***',
+        'PASSWORD': '***',
+        'HOST': '***',
+        'PORT': '***',
     }
 }
 
